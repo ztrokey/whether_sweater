@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe Forecast do
   it 'creates a forecast object' do
     response = File.read('spec/fixtures/forecast/forecast_details.json')
-    details = JSON.parse(response, symbolize_names: true)
+    attributes = JSON.parse(response, symbolize_names: true)
 
-    forecast_object = Forecast.new(details)
+    forecast_object = Forecast.new(attributes)
 
     expect(forecast_object).to be_a(Forecast)
     expect(forecast_object.id).to eq(nil)
@@ -32,6 +32,7 @@ RSpec.describe Forecast do
     expect(forecast_object.current_weather[:icon]).to be_a(String)
 
     expect(forecast_object.daily_weather).to be_an(Array)
+    expect(forecast_object.daily_weather.count).to eq(5)
     expect(forecast_object.daily_weather.first).to be_a(Hash)
     expect(forecast_object.daily_weather.first).to have_key(:date)
     expect(forecast_object.daily_weather.first[:date]).to be_a(String)
@@ -49,6 +50,7 @@ RSpec.describe Forecast do
     expect(forecast_object.daily_weather.first[:icon]).to be_a(String)
 
     expect(forecast_object.hourly_weather).to be_an(Array)
+    expect(forecast_object.hourly_weather.count).to eq(8)
     expect(forecast_object.hourly_weather.first).to be_a(Hash)
     expect(forecast_object.hourly_weather.first).to have_key(:time)
     expect(forecast_object.hourly_weather.first[:time]).to be_a(String)
