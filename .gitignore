@@ -19,5 +19,14 @@
 
 .byebug_history
 
+# Ignore test coverage
+/coverage/*
+
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Ignore VCR cassettes
+/spec/fixtures/vcr_cassettes/*
+
+# Ignore application configuration
+/config/application.yml
