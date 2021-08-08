@@ -22,10 +22,8 @@ RSpec.describe 'get forecast by location' do
       expect(forecast[:data][:attributes]).to have_key(:daily_weather)
 
       expect(forecast[:data][:attributes]).to have_key(:hourly_weather)
+
+      expect(forecast[:data][:attributes]).to_not have_key(:minutely)
     end
   end
 end
-
-# GET /api/v1/forecast?location=denver,co
-# Content-Type: application/json
-# Accept: application/json
