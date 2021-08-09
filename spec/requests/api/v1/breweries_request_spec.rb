@@ -37,4 +37,20 @@ RSpec.describe 'get breweries by location' do
       expect(breweries[:data][:attributes][:breweries].first[:brewery_type]).to be_a(String)
     end
   end
+  describe 'sad path' do
+    it 'returns an error if info is missing', :vcr do
+      location = ' '
+      quantity = 5
+      get "/api/v1/breweries?location=#{location}&quantity=#{quantity}"
+      expect(response).to be_successful
+
+      error = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error).to be_a(Hash)
+      expect(error).to have_key(:error)
+      expect(error[:error]).to be_a(String)
+      expect(error).to have_key(:status)
+      expect(error[:status]).to be_a(Integer)
+    end
+  end
 end
