@@ -23,6 +23,7 @@ class Brewery
     brewery_data.map do |brewery|
       {
         id: brewery[:id],
+        name: brewery[:name],
         brewery_type: brewery[:brewery_type]
       }
     end
