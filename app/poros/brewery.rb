@@ -19,7 +19,6 @@ class Brewery
   end
 
   def brewery_info(brewery_data)
-    # may need to change to look more like daily and hourly forecast poro?
     brewery_data.map do |brewery|
       {
         id: brewery[:id],
