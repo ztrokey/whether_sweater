@@ -12,8 +12,5 @@ class Api::V1::BreweriesController < ApplicationController
       brewery = BreweryFacade.get_breweries(location, quantity)
       render json: BrewerySerializer.new(brewery)
     end
-
-    # brewery = BreweryFacade.get_breweries(location, quantity)
-    # render json: BrewerySerializer.new(brewery)
   end
 end
