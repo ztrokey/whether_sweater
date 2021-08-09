@@ -3,7 +3,17 @@ class Api::V1::BreweriesController < ApplicationController
     location = params[:location]
     quantity = params[:quantity]
 
-    brewery = BreweryFacade.get_breweries(location, quantity)
-    render json: BrewerySerializer.new(brewery)
+    if params[:location].blank?
+      render json: {
+        error: 'location cannot be blank',
+        status: 406
+      }
+    else
+      brewery = BreweryFacade.get_breweries(location, quantity)
+      render json: BrewerySerializer.new(brewery)
+    end
+
+    # brewery = BreweryFacade.get_breweries(location, quantity)
+    # render json: BrewerySerializer.new(brewery)
   end
 end
