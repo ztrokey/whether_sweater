@@ -3,7 +3,15 @@ class MapQuestService
     response = conn.get('/geocoding/v1/address') do |req|
       req.params['location'] = location
     end
-    json = JSON.parse(response.body, symbolize_names: true)
+    JSON.parse(response.body, symbolize_names: true)
+  end
+
+  def self.get_travel_details(origin, destination)
+    response = conn.get('/directions/v2/route') do |req|
+      req.params['from'] = origin
+      req.params['to'] = destination
+    end
+    JSON.parse(response.body, symbolize_names: true)
   end
 
   def self.conn
