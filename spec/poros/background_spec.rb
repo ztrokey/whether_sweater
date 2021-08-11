@@ -91,7 +91,7 @@ RSpec.describe Background do
       ]
     }
     location = 'Denver, CO'
-    
+
     background_object = Background.new(attributes, location)
 
     expect(background_object).to be_a(Background)

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'BreweryFacade' do
   it 'finds breweries based off of location' do
-    VCR.use_cassette("creates_a_brewery_object") do
+    VCR.use_cassette('creates_a_brewery_object') do
       location = 'denver,co'
       quantity = 5
 

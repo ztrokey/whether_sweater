@@ -8,7 +8,7 @@ RSpec.describe 'get background by location' do
       expect(response).to be_successful
 
       background = JSON.parse(response.body, symbolize_names: true)
-      
+
       expect(background).to be_a(Hash)
       expect(background).to have_key(:data)
       expect(background[:data]).to be_a(Hash)
@@ -32,6 +32,24 @@ RSpec.describe 'get background by location' do
       expect(background[:data][:attributes][:credit][:author]).to be_a(String)
       expect(background[:data][:attributes][:credit]).to have_key(:author_portfolio)
       expect(background[:data][:attributes][:credit][:author_portfolio]).to be_a(String)
+    end
+  end
+  describe 'sad path' do
+    it 'requires location to be filled in' do
+      get '/api/v1/backgrounds?location='
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(406)
+
+      error_message = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error_message).to be_a(Hash)
+      expect(error_message).to have_key(:error)
+      expect(error_message[:error]).to be_a(String)
+      expect(error_message[:error]).to eq('location cannot be blank')
+      expect(error_message).to have_key(:status)
+      expect(error_message[:status]).to be_a(Integer)
+      expect(error_message[:status]).to eq(406)
     end
   end
 end

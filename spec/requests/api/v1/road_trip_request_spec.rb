@@ -107,5 +107,57 @@ RSpec.describe 'road trip' do
       expect(response_data[:data][:attributes][:weather_at_eta]).to have_key(:conditions)
       expect(response_data[:data][:attributes][:weather_at_eta][:conditions].blank?).to eq(true)
     end
+    it 'requires origin' do
+      user = User.create!(
+        email: 'goodemail@ex.com',
+        password: 'goodpassword',
+        password_confirmation: 'goodpassword'
+      )
+      search_body = {
+        origin: '',
+        destination: 'dallas,tx',
+        api_key: user.api_key.to_s
+      }
+      post '/api/v1/road_trip', params: search_body
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(406)
+
+      error_message = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error_message).to be_a(Hash)
+      expect(error_message).to have_key(:error)
+      expect(error_message[:error]).to be_a(String)
+      expect(error_message[:error]).to eq('locations cannot be blank')
+      expect(error_message).to have_key(:status)
+      expect(error_message[:status]).to be_a(Integer)
+      expect(error_message[:status]).to eq(406)
+    end
+    it 'requires destination' do
+      user = User.create!(
+        email: 'goodemail@ex.com',
+        password: 'goodpassword',
+        password_confirmation: 'goodpassword'
+      )
+      search_body = {
+        origin: 'denver,co',
+        destination: '',
+        api_key: user.api_key.to_s
+      }
+      post '/api/v1/road_trip', params: search_body
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(406)
+
+      error_message = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error_message).to be_a(Hash)
+      expect(error_message).to have_key(:error)
+      expect(error_message[:error]).to be_a(String)
+      expect(error_message[:error]).to eq('locations cannot be blank')
+      expect(error_message).to have_key(:status)
+      expect(error_message[:status]).to be_a(Integer)
+      expect(error_message[:status]).to eq(406)
+    end
   end
 end

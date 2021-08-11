@@ -5,6 +5,11 @@ class Api::V1::RoadTripController < ApplicationController
       render json: {
         error: 'Unauthorized access', status: 401
       }, status: 401
+    elsif params[:origin].blank? || params[:destination].blank?
+      render json: {
+        error: 'locations cannot be blank',
+        status: 406
+      }, status: 406
     else
       origin = params[:origin]
       destination = params[:destination]
