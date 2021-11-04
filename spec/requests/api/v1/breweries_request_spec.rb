@@ -30,7 +30,7 @@ RSpec.describe 'get breweries by location' do
       expect(breweries[:data][:attributes][:breweries].count).to eq(quantity)
       expect(breweries[:data][:attributes][:breweries].first).to be_an(Hash)
       expect(breweries[:data][:attributes][:breweries].first).to have_key(:id)
-      expect(breweries[:data][:attributes][:breweries].first[:id]).to be_a(Integer)
+      expect(breweries[:data][:attributes][:breweries].first[:id]).to be_a(String)
       expect(breweries[:data][:attributes][:breweries].first).to have_key(:name)
       expect(breweries[:data][:attributes][:breweries].first[:name]).to be_a(String)
       expect(breweries[:data][:attributes][:breweries].first).to have_key(:brewery_type)

@@ -12,7 +12,7 @@ RSpec.describe 'BreweryFacade' do
       expect(found_breweries.breweries.count).to eq(quantity)
       expect(found_breweries.breweries.first).to be_a(Hash)
       expect(found_breweries.breweries.first).to have_key(:id)
-      expect(found_breweries.breweries.first[:id]).to be_a(Integer)
+      expect(found_breweries.breweries.first[:id]).to be_a(String)
       expect(found_breweries.breweries.first).to have_key(:name)
       expect(found_breweries.breweries.first[:name]).to be_a(String)
       expect(found_breweries.breweries.first).to have_key(:brewery_type)
